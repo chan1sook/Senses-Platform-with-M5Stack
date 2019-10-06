@@ -1,5 +1,5 @@
 //Senses Platform in M5Stack
-//Display + Send Heartbeat pulse & Temputure probe
+//Display + Send Heartbeat pulse data & Temperature probe data
 #define USE_ARDUINO_INTERRUPTS false
 
 #include <OneWire.h>
