@@ -155,13 +155,13 @@ void drawBarTemp() {
   tempBarPos[1] = posY - (int) (tempFrac * (posY - 20)) ;
   tempBarPos[1] = lerp(BAR_LERP, tempBarPos[0], tempBarPos[1]);
     
-  if(tempBarPos[0] > tempBarPos[1]) { //fill mode
+  if(tempBarPos[0] > tempBarPos[1]) { //fill lines
     while(tempBarPos[0] >= tempBarPos[1]) {
       barFrac = (float)(tempBarPos[0] - 20) / (posY - 20);
       M5.Lcd.fillRect(LCD_WIDTH / 6, tempBarPos[0], LCD_WIDTH / 6, 1, M5.Lcd.color565(255 * (1 - barFrac), 0, 255 * barFrac));
       tempBarPos[0]--;
     }
-  } else { //earse mode
+  } else { //erase lines
     while(tempBarPos[0] <= tempBarPos[1]) {
       M5.Lcd.fillRect(LCD_WIDTH / 6, tempBarPos[0], LCD_WIDTH / 6, 1, BLACK);
       tempBarPos[0]++;
@@ -177,13 +177,13 @@ void drawBarBPM() {
   bpmBarPos[1] = posY - (int) (bpmFrac * (posY - 20)) ;
   bpmBarPos[1] = lerp(BAR_LERP, bpmBarPos[0], bpmBarPos[1]);
   
-  if(bpmBarPos[0] > bpmBarPos[1]) { //fill mode
+  if(bpmBarPos[0] > bpmBarPos[1]) { //fill lines
     while(bpmBarPos[0] >= bpmBarPos[1]) {
       barFrac = (float)(bpmBarPos[0] - 20) / (posY - 20);
       M5.Lcd.fillRect(LCD_WIDTH * 4 / 6, bpmBarPos[0], LCD_WIDTH / 6, 1, M5.Lcd.color565(255 * (1 - barFrac), 0, 255 * barFrac));
       bpmBarPos[0]--;
     }
-  } else { //earse mode
+  } else { //erase lines
     while(bpmBarPos[0] <= bpmBarPos[1]) {
       M5.Lcd.fillRect(LCD_WIDTH * 4 / 6, bpmBarPos[0], LCD_WIDTH / 6, 1, BLACK);
       bpmBarPos[0]++;
@@ -196,12 +196,6 @@ void setup() {
   ms = millis();
   M5.begin(true, false, false);
   Serial.println(F("Senses Platform in M5Stack"));
-
-  pulseSensor.analogInput(PULSE_INPUT);
-  pulseSensor.setSerial(Serial);
-  pulseSensor.setOutputType(SERIAL_PLOTTER);
-  pulseSensor.setThreshold(THRESHOLD);
-  
   Serial.println(); 
 
   xTaskCreatePinnedToCore(taskReadBeat, "taskReadBeat", 4096, NULL, 1, NULL, 0);
