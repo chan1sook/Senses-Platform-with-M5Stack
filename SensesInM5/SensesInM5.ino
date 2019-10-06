@@ -196,8 +196,7 @@ void setup() {
   ms = millis();
   M5.begin(true, false, false);
   Serial.println(F("Senses Platform in M5Stack"));
-  Serial.println(); 
-
+  
   xTaskCreatePinnedToCore(taskReadBeat, "taskReadBeat", 4096, NULL, 1, NULL, 0);
   xTaskCreatePinnedToCore(taskReadTemp, "taskReadTemp", 4096, NULL, 2, NULL, 0);
   xTaskCreatePinnedToCore(taskSensesSend, "taskSensesSend", 4096, NULL, 3, NULL, 0);
